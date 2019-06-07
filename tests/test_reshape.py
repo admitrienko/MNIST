@@ -125,3 +125,4 @@ if __name__ == "__main__":
     test_swap_axes()
     test_mean()
     test_reshape2()
+    #adding two matrices and reshaping is same as reshaping both and then adding
