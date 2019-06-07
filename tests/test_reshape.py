@@ -39,6 +39,12 @@ def first_moment(tensor):
         mu = sumTensor(tensor0, nxSet)/np.prod(sizes[nxSet])
         tensor0 = tensor0 - mu
     return tensor-tensor0
+
+def sumTensor(T, sumDim):
+    sumT = T
+    for i in range(len(sumDim)):
+        sumT = np.expand_dims(np.sum(sumT, sumDim[i]), axis = sumDim[i])
+    return sumT
         
 def test_mean():
     
