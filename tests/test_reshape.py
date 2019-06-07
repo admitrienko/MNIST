@@ -24,8 +24,6 @@ def test_swap_axes():
 
     swapped_data = np.swapaxes(original_data,1,2)
 
- 
-
     assert np.array_equal(swapped_data[:,:,0], original_data[:,0])
     
     assert np.array_equal(swapped_data[:,:,1], original_data[:,1])
@@ -40,7 +38,7 @@ def first_moment(tensor):
         nxSet = list(set(tensorIxs).difference(set([x])))
         mu = sumTensor(tensor0, nxSet)/np.prod(sizes[nxSet])
         tensor0 = tensor0 - mu
-  return tensor-tensor0
+    return tensor-tensor0
         
 def test_mean():
     
@@ -53,7 +51,6 @@ def test_mean():
     T = swapped_data.shape[0]
     N = swapped_data.shape[1]
     C = swapped_data.shape[2]
-    
     
     mean = first_moment(swapped_data)
     
@@ -70,12 +67,11 @@ def test_mean():
             current_sum = X[:,n_value, c_value]
         
             total_sum += current_sum
-        
+    
         
     total_mean = total_sum/ (N*C)
 
     assert np.mean(total_mean)) < 1e-7
-
 
 #mean across N
     total_sum = 0
@@ -93,8 +89,6 @@ def test_mean():
     total_mean = total_sum/ (T*C)
 
     assert np.mean(total_mean)) < 1e-7
-
-
 
 #mean across C
     total_sum = 0
