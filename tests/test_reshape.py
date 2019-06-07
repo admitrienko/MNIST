@@ -6,11 +6,11 @@ def reshape1(data):
 
     return data_reshaped
 
-def test_reshape1(input1, input2):
+def test_reshape1(new_data, original_data):
 
-    assert np.array_equal(input1[:,0], input2[0:4])
+    assert np.array_equal(new_data[:,0], original_data[0:4])
 
-    assert np.array_equal(input1[:,1], input2[4:8])
+    assert np.array_equal(new_data[:,1], original_data[4:8])
     
     
 #def swap_axes1():
