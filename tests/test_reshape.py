@@ -1,16 +1,11 @@
 import numpy as np
 
-def reshape1(data):
-
-    data_reshaped = np.reshape(data, (4,2,3), order = 'F')
-
-    return data_reshaped
 
 def test_reshape1():
     
     original_data = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12], [13,14,15],[16,17,18],[19,20,21],[22,23,24]])
     
-    new_data = reshape1(original_data)
+    new_data = np.reshape(data, (4,2,3), order = 'F')
     
     assert np.array_equal(new_data[:,0], original_data[0:4])
 
@@ -63,7 +58,7 @@ def test_mean():
     total_sum = 0
     current_sum = 0
 
-    X = data - mean
+    X = swapped_data - mean
 
     #mean across T
     for n_value in range(N):
