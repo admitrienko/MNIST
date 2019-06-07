@@ -71,7 +71,7 @@ def test_mean():
         
     total_mean = total_sum/ (N*C)
 
-    assert np.mean(total_mean)) < 1e-7
+    assert np.mean(total_mean) < 1e-7
 
 #mean across N
     total_sum = 0
@@ -88,7 +88,7 @@ def test_mean():
         
     total_mean = total_sum/ (T*C)
 
-    assert np.mean(total_mean)) < 1e-7
+    assert np.mean(total_mean) < 1e-7
 
 #mean across C
     total_sum = 0
@@ -105,7 +105,7 @@ def test_mean():
         
     total_mean = total_sum/ (T*N)
 
-    assert np.mean(total_mean)) < 1e-7
+    assert np.mean(total_mean) < 1e-7
         
         
     
