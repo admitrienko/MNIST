@@ -8,11 +8,11 @@ def reshape1(data):
 
 def test_reshape1():
 
-    input1 = np.array([1,2,3,4],[5,6,7,8])
+    input1 = np.array([[1,2,3,4],[5,6,7,8]])
 
-    output1 = np.array([1,2],[3,4])
+    output1 = np.array([[1,2],[3,4]])
 
-    output2 = np.array([5,6],[7,8])
+    output2 = np.array([[5,6],[7,8]])
 
     assert reshape1(input1)[0] == output1
     assert reshape1(input1)[1] == output2
