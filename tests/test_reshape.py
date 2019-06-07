@@ -124,3 +124,4 @@ if __name__ == "__main__":
     test_reshape1()
     test_swap_axes()
     test_mean()
+    test_reshape2()
