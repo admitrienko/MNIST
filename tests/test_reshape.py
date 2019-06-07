@@ -2,30 +2,21 @@ import numpy as np
 
 def reshape1(data):
 
-    data_reshaped = np.reshape(data, (2,2,2), order = 'F') 
+    data_reshaped = np.reshape(data, (4,2,3), order = 'F')
 
     return data_reshaped
 
-def test_reshape1():
+def test_reshape1(input1):
 
-    input0 = np.array([[1,2,3,4],[5,6,7,8]])
+    reshaped = reshape1(input1):
 
-    output0 = np.array([[1,2],[3,4]])
+    
 
-    output1 = np.array([[5,6],[7,8]])
-    
-    reshaped = reshape1(input0)
-    
-    reshaped0 = reshaped[0]
-    reshaped1 = reshaped[1]
+    assert np.array_equal(reshaped[:,0], input1[0:4])
 
-    assert reshaped0[0] == output1[0]
-    assert reshaped0[1] == output1[1]
-    assert reshaped0[2] == output1[2]
-    assert reshaped0[3] == output1[3]
+    assert np.array_equal(reshaped[:,1], input1[4:8])
     
-    assert reshaped1[0] == output2[0]
-    assert reshaped1[1] == output2[1]
-    assert reshaped1[2] == output2[2]
-    assert reshaped1[3] == output2[3]
-    
+if __name__ == "__main__":
+    data = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12], [13,14,15],[16,17,18],[19,20,21],[22,23,24]]) #8x3
+    test_reshape1(data)
+    #test_swap_axes(data)
