@@ -108,7 +108,14 @@ def test_mean():
 
     assert np.mean(total_mean) < 1e-7
         
-        
+def test_reshape2():
+    data = np.array([[1,2,3],[4,5,6],[7,8,9],[10,11,12], [13,14,15],[16,17,18],[19,20,21],[22,23,24]])
+
+    original_data = np.reshape(data, (4,2,3), order = 'F')
+
+    swapped_data = np.reshape(original_data, (8,3), order = 'F')
+    
+    assert np.array_equal(data, swapped_data)
     
     
 if __name__ == "__main__":
