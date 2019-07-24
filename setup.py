@@ -12,9 +12,9 @@ setup(name='MNIST_Abstraction_Testing',
                        'tensorflow',
                         'matplotlib',
                         'gzip',
-                        'randtensor',
                         'sklearn',
-                        'scipy'
+                        'scipy',
+                        'git+https://github.com/gamaleldin/rand_tensor'
                        ],
       packages=['git_template']
      )
