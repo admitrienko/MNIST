@@ -14,6 +14,6 @@ setup(name='MNIST_Abstraction_Testing',
                         'gzip',
                         'sklearn',
                         'scipy',
-                        'git+https://github.com/gamaleldin/rand_tensor'
+                        'git+https://github.com/gamaleldin/rand_tensor.git'
                        ]
      )
