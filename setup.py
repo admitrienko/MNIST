@@ -15,7 +15,7 @@ setup(name='MNIST_Abstraction_Testing',
                         'gzip',
                         'sklearn',
                         'scipy',
-                        'rand_tensor'
+                        'randtensor'
                        ]
 
      )
