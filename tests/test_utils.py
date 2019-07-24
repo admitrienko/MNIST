@@ -1,6 +1,5 @@
 import sys
 
-sys.path.append("../")
 from utils import *
 
 import numpy as np
