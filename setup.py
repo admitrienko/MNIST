@@ -2,7 +2,7 @@
 
 from setuptools import setup
 
-setup(name='git_template',
+setup(name='MNIST_Abstraction_Testing',
       version='0.1',
       description='Git template.',
       author='Anastasia Dmitrienko',
@@ -12,11 +12,8 @@ setup(name='git_template',
                        'tensorflow',
                         'matplotlib',
                         'gzip',
-                        'random',
                         'randtensor',
-                        'math',
                         'sklearn',
-                        'itertools',
                         'scipy'
                        ],
       packages=['git_template']
