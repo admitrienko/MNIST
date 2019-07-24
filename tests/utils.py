@@ -1,5 +1,4 @@
 import operator
-import plotly.plotly as py
 import numpy as np
 import keras
 from keras.models import Model, Sequential
@@ -16,7 +15,6 @@ from itertools import permutations
 from mpl_toolkits.mplot3d import Axes3D
 from scipy import stats
 from sklearn.decomposition import PCA
-import plotly.graph_objs as go
 
 # sample from isotropic Gaussian data
 def sample_random_data(dimensions):
