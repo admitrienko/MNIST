@@ -12,7 +12,6 @@ setup(name='MNIST_Abstraction_Testing',
                        'keras',
                        'tensorflow',
                         'matplotlib',
-                        'gzip',
                         'sklearn',
                         'scipy'
                        ]
