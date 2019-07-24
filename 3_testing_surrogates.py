@@ -11,7 +11,7 @@ import matplotlib.patches as mpatches
             
 
 
-def sample_random_data_2D(dimensions)
+def sample_random_data_2D(dimensions):
     
     random_data = np.ones((dimensions))
 
