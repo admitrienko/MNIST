@@ -15,5 +15,5 @@ setup(name='MNIST_Abstraction_Testing',
                         'sklearn',
                         'scipy'
                        ],
-      packages = ['MNIST_Abstraction_Testing']
+      packages = ['MNIST_Abstraction_Testing'],
      )
