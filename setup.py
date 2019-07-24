@@ -7,6 +7,7 @@ setup(name='MNIST_Abstraction_Testing',
       description='Git template.',
       author='Anastasia Dmitrienko',
       author_email='ad3473@columbia.edu',
+      dependency_links=['https://github.com/gamaleldin/rand_tensor/tarball/master#egg=package-1.0'],
       install_requires=['numpy', 
                        'keras',
                        'tensorflow',
@@ -14,6 +15,7 @@ setup(name='MNIST_Abstraction_Testing',
                         'gzip',
                         'sklearn',
                         'scipy',
-                        'git+https://github.com/gamaleldin/rand_tensor.git'
+                        'rand_tensor'
                        ]
+
      )
