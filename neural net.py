@@ -185,11 +185,11 @@ def train_model(train_image_sample_random, parity_train_sample_random, magnitude
 if __name__ == "__main__":
 
     
-    train_image_path = '/Users/anastasia/Downloads/train-images-idx3-ubyte.gz'
-    test_image_path = '/Users/anastasia/Downloads/t10k-images-idx3-ubyte.gz'
+    train_image_path = './values/MNIST_train_images.gz'
+    test_image_path = './values/MNIST_test_images.gz'
 
-    train_label_path = '/Users/anastasia/Downloads/train-labels-idx1-ubyte.gz'
-    test_label_path = '/Users/anastasia/Downloads/t10k-labels-idx1-ubyte.gz'
+    train_label_path = './values/MNIST_train_labels.gz'
+    test_label_path = './values/MNIST_test_labels.gz'
 
 
     #create and shuffle training dataset, including flattened images and parity/magnitude labels
