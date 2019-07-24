@@ -14,6 +14,6 @@ setup(name='MNIST_Abstraction_Testing',
                         'matplotlib',
                         'sklearn',
                         'scipy'
-                       ]
+                       ],
       packages = ['MNIST_Abstraction_Testing']
      )
