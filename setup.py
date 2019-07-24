@@ -18,8 +18,7 @@ setup(name='git_template',
                         'sklearn',
                         'itertools',
                         'scipy',
-                        'mpl_toolkits',
-                        'operator'
+                        'mpl_toolkits'
                        ],
       packages=['git_template']
      )
