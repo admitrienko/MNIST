@@ -8,6 +8,7 @@ from scipy import stats
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
+from utils import *
             
 
 
