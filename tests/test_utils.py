@@ -13,7 +13,7 @@ def test_cosine():
         assert prime_factors(v1,inputs[i]) == outputs[i]
 
     
-
+'''
 def test_learning_rates():
 
     mag_accuracies = []
@@ -57,7 +57,7 @@ def test_learning_rates():
 
     for acc in parity_accuracies:
         assert(acc > 0.98)    
-    
+'''    
         
 
 def test_CCGP():
@@ -136,7 +136,10 @@ def test_cov():
 
 def test_mean_center():
 
-    data = 
+    NN_data = np.load('./values/new_NN_data.npy')
+    NN_mean = np.load('./values/new_mean_2D.npy')
+    
+    data = NN_data - NN_mean
 
     T = data.shape[0]
     N = data.shape[1]
@@ -311,8 +314,7 @@ if __name__ == "__main__":
     
     
     test_cosine()
-    test_unshuffle()
-    test_learning_rates()
+    #test_learning_rates()
     test_CCGP()
     test_cov()
     test_mean_center()
