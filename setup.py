@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(name='MNIST_Abstraction_Testing',
       version='0.1',
-      description='Git template.',
+      description='MNIST abstraction testing project.',
       author='Anastasia Dmitrienko',
       author_email='ad3473@columbia.edu',
       dependency_links=['https://github.com/gamaleldin/rand_tensor/tarball/master#egg=package-1.0'],
@@ -16,5 +16,4 @@ setup(name='MNIST_Abstraction_Testing',
                         'sklearn',
                         'scipy'
                        ],
-      packages = ['MNIST_Abstraction_Testing'],
      )
