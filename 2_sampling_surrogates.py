@@ -18,6 +18,18 @@ def import_randtensor(pathname):
 
 
 def reduce_sample_size(data, labels, T=2000, C=8, N=100, old_T=5420):
+    
+    """Find classification accuracy of neural network trained to determine magnitude/parity
+	    # Arguments 
+	        predictions (array): output of model.predict(), Nx2 array
+	        test_magnitudes (array): N-length array of magnitude labels
+	        test_parities (array): N-length array of parity labels
+    
+        # Returns 
+            mag_accuracy (double): accuracy of classifying magnitude
+	        parity_accuracy (double): accuracy of classifying parity
+    
+    """
 
     new_data = np.ones(((T * C), N))
     new_NN_labels = np.ones(T * C)
@@ -35,6 +47,18 @@ def reduce_sample_size(data, labels, T=2000, C=8, N=100, old_T=5420):
 
 
 def mean_center(data):
+    
+    """Find classification accuracy of neural network trained to determine magnitude/parity
+	    # Arguments 
+	        predictions (array): output of model.predict(), Nx2 array
+	        test_magnitudes (array): N-length array of magnitude labels
+	        test_parities (array): N-length array of parity labels
+    
+        # Returns 
+            mag_accuracy (double): accuracy of classifying magnitude
+	        parity_accuracy (double): accuracy of classifying parity
+    
+    """
 
     T = data.shape[0]
     N = data.shape[1]
@@ -56,6 +80,18 @@ def mean_center(data):
 
 
 def TME_sample(mean_centered, mean_reshaped, num_samples):
+    
+    """Find classification accuracy of neural network trained to determine magnitude/parity
+	    # Arguments 
+	        predictions (array): output of model.predict(), Nx2 array
+	        test_magnitudes (array): N-length array of magnitude labels
+	        test_parities (array): N-length array of parity labels
+    
+        # Returns 
+            mag_accuracy (double): accuracy of classifying magnitude
+	        parity_accuracy (double): accuracy of classifying parity
+    
+    """
 
     T = mean_centered.shape[0]
     N = mean_centered.shape[1]
