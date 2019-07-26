@@ -21,6 +21,9 @@ from sklearn.decomposition import PCA
 
 
 def test_cosine():
+    
+    """Testing cosine function using different vectors.
+    """
 
     inputs = [[-1, 0, 0], [0, 0, 1], [1, 0, 0]]
 
@@ -29,11 +32,14 @@ def test_cosine():
     outputs = [-1, 0, 1]
 
     for i in range(len(inputs)):
-        assert prime_factors(v1, inputs[i]) == outputs[i]
+        assert cosine(v1, inputs[i]) == outputs[i]
 
 
 """
 def test_learning_rates():
+
+    Testing to ensure that the classification accuracy of the neural network is high (>0.98)
+    
     mag_accuracies = []
     parity_accuracies = []
     lrs = [0.01, 0.005, 0.001, 0.0005, 0.00001, 0.00005]
@@ -66,6 +72,9 @@ def test_learning_rates():
 
 
 def test_CCGP():
+    
+    """Testing the CCGP function using very separated (CCGP > 0.99) or very scattered (CCGP < 0.6) data.
+    """
 
     toy_data_x = np.ones(200)
     toy_data_y = np.ones(200)
@@ -122,6 +131,9 @@ def test_CCGP():
 
 
 def test_cov():
+    
+    """Testing the 3D covariance function using a small 2x2 tensor.
+    """
 
     inputs = np.array([[[0, 0], [0, 0]], [[1, 1], [2, 2]]])
 
@@ -137,6 +149,9 @@ def test_cov():
 
 
 def test_mean_center():
+    
+        """Testing to see if neural net data with mean subtracted has a mean close to zero across each mode.
+        """
 
     NN_data = np.load("./values/new_NN_data.npy")
     NN_mean = np.load("./values/new_mean_2D.npy")
@@ -180,6 +195,9 @@ def test_mean_center():
 
 
 def test_p_score():
+    
+    """Testing the PS function using very separated (PS > 0.99) or very scattered (PS < 0.01) data.
+    """
 
     toy_data_x = np.ones(200)
     toy_data_y = np.ones(200)
@@ -234,6 +252,10 @@ def test_p_score():
 
 
 def test_surrogate_primary_features():
+    
+    """Testing to see if the marginal covariances of surrogate data match those of the original data. 
+    (i.e., differ from the original covariances by a constant amount)
+    """
 
     data = np.ones((100, 50, 25))
 
