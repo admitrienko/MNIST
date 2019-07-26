@@ -19,8 +19,8 @@ from sklearn.decomposition import PCA
 
 def sample_random_data(dimensions):
     
-        """Sample from isotropic Gaussian data
-		# Arguments 
+    """Sample from isotropic Gaussian data
+	# Arguments 
             dimensions (array or tuple): Dimensions of random data
     
         # Returns 
@@ -40,7 +40,20 @@ def sample_random_data(dimensions):
     return random_data
 
 
-def get_accuracy(predictions):
+def get_accuracy(predictions, test_magnitudes, test_parities):
+	
+    """Find classification accuracy of neural network trained to determine magnitude/parity
+	    # Arguments 
+	    predictions (array): output of model.predict(), Nx2 array
+	    test_magnitudes (array): N-length array of magnitude labels
+	    test_parities (array): N-length array of parity labels
+    
+        # Returns 
+            mag_accuracy (double): accuracy of classifying magnitude
+	        parity_accuracy (double): accuracy of classifying parity
+    
+    """
+
     mag_predictions = predictions[1].T
     parity_predictions = predictions[0].T
 
@@ -80,7 +93,7 @@ def get_accuracy(predictions):
 def cov_3D(data):
     
     """Calculate marginal covariances of 3D tensor
-		# Arguments 
+	# Arguments 
             data (tensor): 3D dataset
     
         # Returns 
@@ -145,7 +158,7 @@ def cov_3D(data):
 def get_dichotomies():
     
     """Calculate all the ways to split 8 digits into dichotomies of 4 
-		# Arguments 
+	# Arguments 
             none
     
         # Returns 
@@ -177,7 +190,7 @@ def shuffle_dataset(current_data, current_labels):
     
     
     """Shuffles a data set
-		# Arguments 
+	# Arguments 
             (arrays) dataset and corresponding condition labels
     
         # Returns 
@@ -213,7 +226,7 @@ def shuffle_dataset(current_data, current_labels):
 def plot_MDS(input_dataset, input_labels, number_points=800, title="MDS Plot"):
     
     """2D MDS visualization for data
-		# Arguments 
+	# Arguments 
             (arrays): Shuffled dataset and corresponding condition labels. 
             Optional to choose number of points in plot and plot title
     
@@ -346,10 +359,10 @@ def ccgp(data, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8]), labels=[]):
     
     """Calculates CCGP of a given dichotomy for a dataset.
     
-		# Arguments 
-            data (array): Input data with two dimensional-shape.
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N)
             dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
-            labels (array): Corresponding condition labels with same length as input data.
+            labels (array): Corresponding condition labels with same length as input data (N).
     
         # Returns 
             CCGP (double): CCGP, or average classification accuracy for 16 possible training sets for dichotomy.
@@ -439,10 +452,10 @@ def p_score(data, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8]), labels=[]):
     
     """Calculates Parallelism Score of a given dichotomy for a dataset.
     
-		# Arguments 
-            data (array): Input data with two dimensional shape.
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N)
             dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
-            labels (array): Corresponding condition labels with same length as input data.
+            labels (array): Corresponding condition labels with same length as input data (N).
     
         # Returns 
             PS (double): Parallelism score, or the maximum cosine across all 24 possible condition pairings for the dichotomy.
@@ -591,7 +604,7 @@ def abstraction_index(data, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8])):
         on the same side of a dichotomy (within or intra-group) to the average distance between
         those on opposite sides of the dichotomy (between or inter-group).
     
-		# Arguments 
+	# Arguments 
             data (array): Input data with two dimensional shape.
             dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
     
@@ -691,7 +704,7 @@ def get_mean_SD(values):
     
     """Calculates mean and standard deviation for an array of values.
     
-		# Arguments 
+	# Arguments 
             values (array): 2D array of shape m (number of samples) by n (number of values per sample)
     
         # Returns 
@@ -722,7 +735,7 @@ def sort_means_sd(means, sd):
     
     """Sorts the mean in descending order and finds corresponding SD in the order of the sorted means.
     
-		# Arguments 
+	# Arguments 
             means (array): 1D array of means.
             sd (array): 1D array of corresponding standard deviations.
     
@@ -754,41 +767,85 @@ def sort_means_sd(means, sd):
 
 
 def error_bar_plot(
-    NN_data, TME_data, TME_sd, random_data, random_sd, metric="CCGP", individual_sort = True
+    NN_means, TME_means, TME_sd, random_means, random_sd, metric="CCGP", individual_sort = True
 ):
 
   """Creates error bar plot for CCGP or PS values of neural network data, TME data, and random data.
     
-		# Arguments 
-            NN_data = 
-            
-            
+	# Arguments 
+            NN_means = metric means for neural network data (length 35)
+	    
+	    TME_means = metric means for TME data (length 35)
+	    TME_sd = metric S.D. for neural network data (length 35)
+	    
+	    random_means = metric means for random data (length 35)
+	    random_sd = metric S.D. for random data (length 35)
+	    
+            OPTIONAL
+	    metric (string) = Title for plot, based on the metric to be used.
+	    individual_sort = True if each data type is sorted individually, False if all sorted by dichotomy rank of NN data
             
     
         # Returns 
-            None. Plots values for 
+            None. Plots CCGP/PS sample means with 2*SD error bars to compare values.
     
     """      
+    if individual_sort:
+    	NN_means = np.sort(NN_means)
+	NN_means = NN_means[::-1]
+    	TME_means, TME_sd = sort(TME_means, TME_sd)
+	random_means, random_sd = sort(random_means, random_sd)
+	
+    else:
+	
+	#find index locations for NN data
+	values_dict = {}
     
+    	for x in range(len(NN_means)):
+        
+        	values_dict[x] = NN_means[x]
+        
+    	sorted_dict = sorted(values_dict.items(), key=operator.itemgetter(1), reverse = True)
     
+    	index_locations = []
+	
+	for tup in sorted_dict:
+		
+		index_locations.append(tup[0])
+
+        #sort TME and random_data 
+	counter = 0
+    	for x in index_locations:
+		
+		new_TME_means = TME_means
+		new_TME_sd = TME_sd
+		
+		new_TME_means[x] = TME_means[counter]
+		new_TME_sd[x] = TME_sd[counter]
+		
+		new_random_means = random_means
+		new_random_sd = random_sd		
+		
+		new_random_means[x] = random_means[counter]
+		new_random_sd[x] = random_sd[counter]
+		
+		TME_means = new_TME_means
+		TME_sd = new_TME_sd
+		random_means = new_random_means
+		random_sd = new_random_sd
+
+		counter += 1
     
-   
-    
-    plt.scatter(range(0, len(sample_CCGP1)), sample_CCGP1, color="red")
-    plt.scatter(range(0, len(CCGP_means)), CCGP_means, color="black")
+    plt.scatter(range(0, len(NN_means)), NN_means, color="red")
+    plt.scatter(range(0, len(TME_means)), TME_means, color="black")
     plt.errorbar(
-        range(0, len(CCGP_means)), CCGP_means, yerr=2 * np.array(CCGP_sd), color="black"
+        range(0, len(TME_means)), TME_means, yerr=2 * np.array(TME_sd), color="black"
     )
 
-    plt.scatter(range(0, len(CFR_CCGP_means)), CFR_CCGP_means, color="orange")
+    plt.scatter(range(0, len(random_means)), random_means, color="blue")
     plt.errorbar(
-        range(0, len(CFR_CCGP_means)),
-        CFR_CCGP_means,
-        yerr=2 * np.array(CFR_CCGP_sd),
-        color="orange",
+        range(0, len(random_means)), random_means, yerr=2 * np.array(random_sd), color="blue"
     )
-
-    plt.scatter(range(0, len(random_CCGP)), random_CCGP, color="blue")
 
     plt.ylabel(metric, fontsize=30)
     plt.xlabel("Dichotomy Rank", fontsize=24)
@@ -807,10 +864,10 @@ def get_best_svm(data, dichotomy, labels):
   """Finds the 4 linear SVM classifiers corresponding to the best condition pairing of a dichotomy 
     (leading to best parallelism score)
     
-		# Arguments 
-            data (array): Input data with two dimensional shape.
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N)
             dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
-            labels (array): Corresponding condition labels with same length as input data.
+            labels (array): Corresponding condition labels with same length as input data (N).
 
         # Returns 
             best_svc1, best_svc2, best_svc3, best_svc4 (LinearSVM): Linear classifiers based on 4 hyperplanes 
@@ -1236,7 +1293,18 @@ def plot_hyperplane(data, dichotomy, labels, col = True):
     iplot(fig)
 
 
-def get_PS(data, labels):
+def get_PS(datasets, labels):
+	
+  """Finds parallelism scores for each dichotomy, given data and labels
+    
+	# Arguments 
+            data (array): Array of X datasets (each dataset has two dimensional shape (T*C, N))
+            labels (array): Corresponding condition labels with same length as input data (N).
+
+        # Returns 
+            PS_ranks (array) Array size X by 35, with 35 parallelism scores for each dataset
+    
+   """  
 
     dichotomies = get_dichotomies()
 
@@ -1262,6 +1330,17 @@ def get_PS(data, labels):
 
 
 def get_CCGP(data, labels):
+	
+  """Finds CCGP values for each dichotomy, given data and labels
+    
+	# Arguments 
+            data (array): Array of X datasets (each dataset has two dimensional shape (T*C, N))
+            labels (array): Corresponding condition labels with same length as input data (N).
+
+        # Returns 
+            CCGP_ranks (array) Array size X by 35, with 35 CCGP values for each dataset
+   
+   """  
 
     dichotomies = get_dichotomies()
 
