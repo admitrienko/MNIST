@@ -15,6 +15,21 @@ image_size = 784
 
 
 def create_train_sample(train_data, train_labels):
+    
+    """Creates a training sample with equal numbers (T) of each digit (1-8)
+    
+	    # Arguments 
+	        train_data (2D array): training data size (60000, 28, 28, 1)
+	        train_labels (1D array): digit labels for training data length 60000
+    
+        # Returns 
+            train_image_sample: new train image sample with compressed images (size 784)
+            parity_train_sample: one-hot vector representing parity of each image in new sample
+            magnitude_train_sample: one-hot vector representing magnitude of each image in new sample
+            train_label: array with labels for each digit
+    
+    """
+    
     train_image_sample = np.ones((T*C, image_size))
     parity_train_sample = np.ones((2, T*C))
     magnitude_train_sample = np.ones((2, T*C))
@@ -64,6 +79,21 @@ def create_train_sample(train_data, train_labels):
 def shuffle_train_data(
     train_image_sample, parity_train_sample, magnitude_train_sample, train_label
 ):
+    
+    """Shuffle the training data before inputting to neural network
+	    # Arguments 
+            train_image_sample, parity_train_sample, magnitude_train_sample, train_label (array)
+    
+        # Returns 
+            train_image_sample_random,
+            train_label_random,
+            parity_train_sample_random,
+            magnitude_train_sample_random (array): shuffled versions of input data
+            
+            index_locations (array) = indeces for old locations of the shuffled data
+    
+    """
+    
     train_image_sample_random = np.ones((T*C, image_size))
     train_label_random = np.ones(T*C)
     parity_train_sample_random = np.ones((2, T*C))
@@ -97,6 +127,18 @@ def shuffle_train_data(
 
 
 def hidden_layer_output(model, train_image_sample):
+    
+    
+    """Get output of 2 hidden layers in neural network
+    
+	    # Arguments 
+	        model (keras.engine.training.Model): trained Keras neural network model
+	        train_image_sample (array): Array containing images sample to input to model
+        # Returns 
+            layer1_output (array): (T*C, N) shape array of layer 1 output
+            layer2_output (array): (T*C, N) shape array of layer 2 output
+    
+    """
 
     get_layer_output1 = K.function([model.layers[0].input], [model.layers[1].output])
     layer1_output = get_layer_output1([train_image_sample])[0]
@@ -111,6 +153,17 @@ def hidden_layer_output(model, train_image_sample):
 def read_MNIST_data(
     train_image_path, test_image_path, train_label_path, test_label_path
 ):
+    
+    """Get output of 2 hidden layers in neural network
+    
+	    # Arguments 
+	        train_image_path, test_image_path, train_label_path, test_label_path (string):
+            paths to MNIST datasets (.gz format) for training/test images & labels
+            
+        # Returns 
+            train_data, test_data, train_labels, test_labels (array): Arrays with values
+    
+    """
 
     with gzip.open(train_image_path, "rb") as f:
         train_image = f.read()
@@ -155,7 +208,7 @@ def read_MNIST_data(
     # plt.imshow(image)
     # plt.show()
 
-    return
+    return train_data, test_data, train_labels, test_labels
 
 
 def train_model(
@@ -164,6 +217,20 @@ def train_model(
     magnitude_train_sample_random,
     epochs=400,
 ):
+    
+    """Train the model
+    
+	    # Arguments 
+	        train_image_sample_random:
+            parity_train_sample_random:
+            magnitude_train_sample_random:
+            OPTIONAL
+            epochs = number of training epochs
+            
+        # Returns 
+            model (keras.engine.training.Model): trained Keras neural network model 
+    
+    """
 
     # compile and fit model
 
@@ -204,7 +271,9 @@ if __name__ == "__main__":
     train_label_path = "./values/MNIST_train_labels.gz"
     test_label_path = "./values/MNIST_test_labels.gz"
 
-    # create and shuffle training dataset, including flattened images and parity/magnitude labels
+    
+    train_data, test_data, train_labels, test_labels = read_MNIST_data(train_image_path, test_image_path, train_label_path, test_label_path)
+     
 
     train_data, train_labels, test_data, test_labels = create_train_sample(
         train_data, train_labels
