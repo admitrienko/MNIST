@@ -5,29 +5,20 @@ from keras.models import Model, Sequential
 from utils import *
 
 
-def import_randtensor(pathname):
-
-    sys.path.append(pathname)
-    import utils as u
-    import randtensor as r
-
-    return None
-
-
-# reduce sample size from 5420 to 2000 to make covariance computations feasible
-
 
 def reduce_sample_size(data, labels, T=2000, C=8, N=100, old_T=5420):
     
-    """Find classification accuracy of neural network trained to determine magnitude/parity
-	    # Arguments 
-	        predictions (array): output of model.predict(), Nx2 array
-	        test_magnitudes (array): N-length array of magnitude labels
-	        test_parities (array): N-length array of parity labels
+    """Reduce sample size from 5420 to 2000 to make covariance computations feasible
+	# Arguments 
+		data (array): Neural network output data with two dimensional shape (old_T*C, N)
+            	labels (array): Corresponding condition labels with same length as input data (N).
+		
+		OPTIONAL
+		Input values of current T,N,C dimensions, as well as previous T dimension before reducing size.
     
         # Returns 
-            mag_accuracy (double): accuracy of classifying magnitude
-	        parity_accuracy (double): accuracy of classifying parity
+           	new_data: New data with two dimensional shape (T*C, N)
+		new_labels: New labels, length N
     
     """
 
@@ -48,15 +39,13 @@ def reduce_sample_size(data, labels, T=2000, C=8, N=100, old_T=5420):
 
 def mean_center(data):
     
-    """Find classification accuracy of neural network trained to determine magnitude/parity
-	    # Arguments 
-	        predictions (array): output of model.predict(), Nx2 array
-	        test_magnitudes (array): N-length array of magnitude labels
-	        test_parities (array): N-length array of parity labels
+    """Subtract the tensor marginal mean from neural network output
+	 # Arguments 
+	        data (array): Neural network output data with 3 dimensional shape (T,N,C)
     
         # Returns 
-            mag_accuracy (double): accuracy of classifying magnitude
-	        parity_accuracy (double): accuracy of classifying parity
+		mean_centered: NN data with tensor marginal mean subtracted away, shape (T,N,C)
+		mean_reshaped: tensor marginal mean shape (T*C, N)
     
     """
 
@@ -75,21 +64,23 @@ def mean_center(data):
     mean_reshaped = np.reshape(mean, ((T * C), N), order="F")
 
     mean_centered = data_2D - mean_reshaped
+	
+    mean_centered = np.reshape(mean_centered, (T, N ,C), order="F")
 
     return mean_centered, mean_reshaped
 
 
 def TME_sample(mean_centered, mean_reshaped, num_samples):
     
-    """Find classification accuracy of neural network trained to determine magnitude/parity
+    """Sample
 	    # Arguments 
-	        predictions (array): output of model.predict(), Nx2 array
-	        test_magnitudes (array): N-length array of magnitude labels
-	        test_parities (array): N-length array of parity labels
+		mean_centered: neural network output data with tensor marginal mean subtracted away, shape (T,N,C)
+		mean_reshaped: tensor marginal mean shape (T*C, N)
+		num_samples (int): number of TME samples to generate
     
         # Returns 
-            mag_accuracy (double): accuracy of classifying magnitude
-	        parity_accuracy (double): accuracy of classifying parity
+            	surrogates_reshaped (array): Array of TME surrogate datasets with tensor marginal mean added back 
+		and reshaped back to (T*C, N)
     
     """
 
@@ -120,6 +111,27 @@ def TME_sample(mean_centered, mean_reshaped, num_samples):
         surrogates_reshaped.append(surrogate_dataset)
 
     return surrogates_reshaped
+
+
+def import_randtensor(pathname):
+	
+    """Import the randtensor directory
+    
+	# Arguments 
+		pathname (string): Path of randtensor directory for importing
+    
+        # Returns 
+            	None
+  
+    """
+
+    sys.path.append(pathname)
+    import utils as u
+    import randtensor as r
+
+    return None
+
+
 
 
 if __name__ == "__main__":
