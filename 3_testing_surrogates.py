@@ -13,6 +13,16 @@ from utils import *
 
 
 def sample_random_data_2D(dimensions):
+            
+    """Creates an isoptropic random dataset
+            
+        # Arguments 
+	dimensions (tuple): size of random dataset (T*C,N)
+    
+        # Returns 
+            random_data (array): (T*C, N) shape random dataset
+    
+    """
     
     random_data = np.ones((dimensions))
 
