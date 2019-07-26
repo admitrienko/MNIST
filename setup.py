@@ -3,7 +3,7 @@
 
 from setuptools import setup
 
-setup(name='MNIST_Abstraction_Testing',
+setup(name='Abstraction_Testing',
       version='0.1',
       description='MNIST abstraction testing project.',
       author='Anastasia Dmitrienko',
