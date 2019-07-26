@@ -2,6 +2,21 @@
 
 
 def p_score2(data, labels, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8])):
+    
+    """Returns the 24 cosines for the all one-to-one possible digit pairings of the dichotomy (rather than just the max cosine), 
+    as well as labels for the two pairings making up each angle.
+    
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N).
+            labels (array): Corresponding condition labels with same length as input data (N).
+            dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
+    
+        # Returns 
+            cosines (array): Array with 24 cosines of the hyperplane angle for each pairing
+            labels (array): Array with 24 tuples containing the 2 pairings corresponding to the angle
+            [format: (pairing 1, pairing 2)]
+    
+    """  
 
     cosines = np.zeros((24, 6))
     total_labels = []
@@ -155,6 +170,19 @@ def p_score2(data, labels, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8])):
 
 
 def ccgp2(data, labels, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8])):
+    
+    """Returns all 16 classification accuracies that make up the CCGP for a given dichotomy
+    (as opposed to just the average accuracy)
+    
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N).
+            labels (array): Corresponding condition labels with same length as input data (N).
+            dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
+    
+    # Returns 
+            accuracy (array): 16 test classification accuracies for each of the training sets possible per dichotomy
+    
+    """  
     labels1 = dichotomy
     label_1a = dichotomy[0]
     label_1b = dichotomy[1]
@@ -233,6 +261,19 @@ def ccgp2(data, labels, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8])):
 
 
 def jitter_x(index, data_length):
+    
+    """Returns jittered coordinates around a certain value, in order to jitter points 
+    horizontally or vertically on scatter plot
+    
+	# Arguments 
+            index (double): index around which to jitter values
+            data_length (int): number of values to jitter
+            
+        # Returns 
+            new_data (array): jittered values of specified length
+    
+    """  
+    
     new_data = []
 
     for i in range(data_length):
@@ -242,12 +283,22 @@ def jitter_x(index, data_length):
     return new_data
 
 
-# 35 plots, one per dichotomy, to show spread of 6 cosines across each of 24 pairings (red star = average cosine across pairing)
-def create_PS_plots(data_reshaped):
+def create_PS_plots(data):
+    
+    """35 plots, one per dichotomy, to show spread of 6 cosines across each of 24 pairings for parallelism score
+    (red star = average cosine across pairing)
+    
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N).
+    
+    #Returns
+            None
+    
+    """  
 
     for d in dichotomies:
 
-        cosines, label = p_score2(data_reshaped, new_labels, d)
+        cosines, label = p_score2(data, new_labels, d)
 
         plt.figure(figsize=(20, 10))
         for i in range(24):
@@ -263,9 +314,19 @@ def create_PS_plots(data_reshaped):
         plt.show()
 
 
-# one plot to show spread of 16 classification accuracies across each dichotomy (red star = average accuracy)
 def create_CCGP_plot(data_reshaped):
-
+ 
+    """One plot to show spread of 16 classification accuracies across each dichotomy for CCGP
+    (red star = average accuracy) 
+    
+	# Arguments 
+            data (array): Input data with two dimensional shape (T*C, N).
+    
+    #Returns
+            None
+    
+    """  
+ 
     index = 0
 
     plt.figure(figsize=(20, 10))
