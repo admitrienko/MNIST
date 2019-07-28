@@ -33,7 +33,24 @@ def test_cosine():
 
     for i in range(len(inputs)):
         assert cosine(v1, inputs[i]) == outputs[i]
+        
+def test_eigen():
+    
+    """Testing eigendecomposition for projection matrix
+    """
+    
+    data = np.array([[1,2],[3,4]])
+    
+    cov = np.cov(data)
 
+    eig_vals, eig_vecs = np.linalg.eig(cov)
+    
+    for i in range(len(eig_vals)):
+    
+        eigv = eig_vecs[:,i].reshape(1,2).T
+    
+        np.testing.assert_array_almost_equal(cov.dot(eigv), eig_vals[i] * eigv,
+                                         decimal=6)
 
 """
 def test_learning_rates():
