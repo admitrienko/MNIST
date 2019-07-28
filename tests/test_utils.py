@@ -344,6 +344,7 @@ def test_surrogate_primary_features():
 if __name__ == "__main__":
 
     test_cosine()
+    test_eigen()
     # test_learning_rates()
     test_CCGP()
     test_cov()
