@@ -3,7 +3,7 @@
 
 from setuptools import setup
 
-setup(name='Abstraction_Testing',
+setup(name='MNIST-Abstraction-Testing',
       version='0.1',
       description='MNIST abstraction testing project.',
       author='Anastasia Dmitrienko',
@@ -16,5 +16,5 @@ setup(name='Abstraction_Testing',
                         'sklearn',
                         'scipy'
                        ],
-      packages = ['Abstraction_Testing'],
+      packages = ['MNIST-Abstraction-Testing'],
      )
