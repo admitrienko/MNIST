@@ -169,7 +169,6 @@ def test_mean_center():
     
         """Testing to see if neural net data with mean subtracted has a mean close to zero across each mode.
         """
-
     NN_data = np.load("./values/new_NN_data.npy")
     NN_mean = np.load("./values/new_mean_2D.npy")
 
