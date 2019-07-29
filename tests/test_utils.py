@@ -54,7 +54,6 @@ def test_eigen():
 
 """
 def test_learning_rates():
-
     Testing to ensure that the classification accuracy of the neural network is high (>0.98)
     
     mag_accuracies = []
@@ -167,8 +166,9 @@ def test_cov():
 
 def test_mean_center():
     
-        """Testing to see if neural net data with mean subtracted has a mean close to zero across each mode.
-        """
+        #Testing to see if neural net data with mean subtracted has a mean close to zero across each mode.
+        
+    
     NN_data = np.load("./values/new_NN_data.npy")
     NN_mean = np.load("./values/new_mean_2D.npy")
 
