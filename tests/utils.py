@@ -765,12 +765,7 @@ def sort_means_sd(means, sd):
 
     return sorted_means, sorted_sd
 
-
-def error_bar_plot(
-    NN_means, TME_means, TME_sd, random_means, random_sd, metric="CCGP", individual_sort = True
-):
-
-  """Creates error bar plot for CCGP or PS values of neural network data, TME data, and random data.
+"""Creates error bar plot for CCGP or PS values of neural network data, TME data, and random data.
     
 	# Arguments 
             NN_means = metric means for neural network data (length 35)
@@ -788,18 +783,26 @@ def error_bar_plot(
     
         # Returns 
             None. Plots CCGP/PS sample means with 2*SD error bars to compare values.
+"""
+
+def error_bar_plot(
+    NN_means, TME_means, TME_sd, random_means, random_sd, metric="CCGP", individual_sort = True
+):
+
+
     
-    """      
+  
     if individual_sort:
+        
     	NN_means = np.sort(NN_means)
-	NN_means = NN_means[::-1]
+        NN_means = np.flip(NN_means)
     	TME_means, TME_sd = sort(TME_means, TME_sd)
-	random_means, random_sd = sort(random_means, random_sd)
+        random_means, random_sd = sort(random_means, random_sd)
 	
     else:
 	
 	#find index locations for NN data
-	values_dict = {}
+        values_dict = {}
     
     	for x in range(len(NN_means)):
         
@@ -861,7 +864,7 @@ def error_bar_plot(
 
 def get_best_svm(data, dichotomy, labels):
     
-  """Finds the 4 linear SVM classifiers corresponding to the best condition pairing of a dichotomy 
+    """Finds the 4 linear SVM classifiers corresponding to the best condition pairing of a dichotomy 
     (leading to best parallelism score)
     
 	# Arguments 
@@ -1046,7 +1049,7 @@ def get_best_svm(data, dichotomy, labels):
 
 def get_projection_matrix(data):
     
-  """Finds projection matrix from high-dimensional (N dimensions) space to low-dimensional (M dimensions) space
+    """Finds projection matrix from high-dimensional (N dimensions) space to low-dimensional (M dimensions) space
     
 		# Arguments 
             data (array): Input data with two dimensional shape.
@@ -1076,7 +1079,7 @@ def get_projection_matrix(data):
 
 def calculate_plane(svm, M):
     
-  """Calculates parameters of 3D hyperplane for given Linear SVM and projection matrix 
+    """Calculates parameters of 3D hyperplane for given Linear SVM and projection matrix 
   
 		# Arguments 
             svm (LinearSVM): SVM corresponding to a hyperplane.
@@ -1144,7 +1147,7 @@ def plot_hyperplane(data, dichotomy, labels, col = True):
     # https://stackoverflow.com/questions/51558687/python-matplotlib-how-do-i-plot-a-plane-from-equation
     
     
-  """Plots the 4 hyperplane (corresponding to 4 digit pairings) for the best pairing in the given dichotomy
+    """Plots the 4 hyperplane (corresponding to 4 digit pairings) for the best pairing in the given dichotomy
     
 		# Arguments 
             data (array): Input data with two dimensional shape.
@@ -1295,7 +1298,7 @@ def plot_hyperplane(data, dichotomy, labels, col = True):
 
 def get_PS(datasets, labels):
 	
-  """Finds parallelism scores for each dichotomy, given data and labels
+    """Finds parallelism scores for each dichotomy, given data and labels
     
 	# Arguments 
             data (array): Array of X datasets (each dataset has two dimensional shape (T*C, N))
@@ -1331,7 +1334,7 @@ def get_PS(datasets, labels):
 
 def get_CCGP(data, labels):
 	
-  """Finds CCGP values for each dichotomy, given data and labels
+    """Finds CCGP values for each dichotomy, given data and labels
     
 	# Arguments 
             data (array): Array of X datasets (each dataset has two dimensional shape (T*C, N))
@@ -1340,7 +1343,7 @@ def get_CCGP(data, labels):
         # Returns 
             CCGP_ranks (array) Array size X by 35, with 35 CCGP values for each dataset
    
-   """  
+    """  
 
     dichotomies = get_dichotomies()
 
