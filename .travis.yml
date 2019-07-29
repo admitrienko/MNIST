@@ -2,7 +2,7 @@ language: python
 python:
   - "3.6"
 install:
-  - pip install git+https://github.com/cunningham-lab/git_template.git
+  - pip install git+https://github.com/admitrienko/MNIST-Abstraction-Testing.git
   - python setup.py -q install
 script:
   - pytest
