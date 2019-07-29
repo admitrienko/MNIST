@@ -796,7 +796,7 @@ def error_bar_plot(
         
     	NN_means = np.sort(NN_means)
         NN_means = np.flip(NN_means)
-    	TME_means, TME_sd = sort(TME_means, TME_sd)
+        TME_means, TME_sd = sort(TME_means, TME_sd)
         random_means, random_sd = sort(random_means, random_sd)
 	
     else:
