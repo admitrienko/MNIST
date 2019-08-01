@@ -336,6 +336,26 @@ def test_surrogate_primary_features():
 
         assert percent_diff < 0.20
 
+def test_angle():
+
+    left = np.array([1,0,0])
+    center = np.array([0,0,0])
+    right = np.array([1,1,0])
+
+    assert find_angle(left, center, right) == 45
+    
+    left = np.array([1,0,0])
+    center = np.array([0,0,0])
+    right = np.array([0,1,0])
+    
+    assert find_angle(left, center, right) == 90
+    
+    left = np.array([1,0,0])
+    center = np.array([0,0,0])
+    right = np.array([-1,0,0])
+    
+    assert find_angle(left, center, right) == 180    
+
 
 # def test_plane_projection():
 
@@ -350,3 +370,4 @@ if __name__ == "__main__":
     test_mean_center()
     test_p_score()
     test_surrogate_primary_features()
+    test_angle()
