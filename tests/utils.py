@@ -297,7 +297,7 @@ def plot_PCA(dataset, labels, title="PCA Plot"):
 
     pca = PCA(n_components=3)
 
-    pca_data = pca.fit_transform(data)
+    pca_data = pca.fit_transform(dataset)
 
     colors = np.ones(len(labels), dtype=object)
     index = 0
@@ -791,75 +791,74 @@ def error_bar_plot(
 
 
     
-  
-    if individual_sort:
+	if individual_sort:
         
-    	NN_means = np.sort(NN_means)
-        NN_means = np.flip(NN_means)
-        TME_means, TME_sd = sort(TME_means, TME_sd)
-        random_means, random_sd = sort(random_means, random_sd)
+		NN_means = np.sort(NN_means)
+		NN_means = np.flip(NN_means)
+        	TME_means, TME_sd = sort(TME_means, TME_sd)
+        	random_means, random_sd = sort(random_means, random_sd)
 	
-    else:
+    	else:
 	
-	#find index locations for NN data
-        values_dict = {}
+		#find index locations for NN data
+        	values_dict = {}
     
-    	for x in range(len(NN_means)):
+    		for x in range(len(NN_means)):
         
-        	values_dict[x] = NN_means[x]
+        		values_dict[x] = NN_means[x]
         
-    	sorted_dict = sorted(values_dict.items(), key=operator.itemgetter(1), reverse = True)
+    		sorted_dict = sorted(values_dict.items(), key=operator.itemgetter(1), reverse = True)
     
-    	index_locations = []
+    		index_locations = []
 	
-	for tup in sorted_dict:
+		for tup in sorted_dict:
 		
-		index_locations.append(tup[0])
+			index_locations.append(tup[0])
 
         #sort TME and random_data 
-	counter = 0
-    	for x in index_locations:
+		counter = 0
+    		for x in index_locations:
 		
-		new_TME_means = TME_means
-		new_TME_sd = TME_sd
+			new_TME_means = TME_means
+			new_TME_sd = TME_sd
 		
-		new_TME_means[x] = TME_means[counter]
-		new_TME_sd[x] = TME_sd[counter]
+			new_TME_means[x] = TME_means[counter]
+			new_TME_sd[x] = TME_sd[counter]
 		
-		new_random_means = random_means
-		new_random_sd = random_sd		
+			new_random_means = random_means
+			new_random_sd = random_sd		
 		
-		new_random_means[x] = random_means[counter]
-		new_random_sd[x] = random_sd[counter]
+			new_random_means[x] = random_means[counter]
+			new_random_sd[x] = random_sd[counter]
 		
-		TME_means = new_TME_means
-		TME_sd = new_TME_sd
-		random_means = new_random_means
-		random_sd = new_random_sd
+			TME_means = new_TME_means
+			TME_sd = new_TME_sd
+			random_means = new_random_means
+			random_sd = new_random_sd
 
-		counter += 1
+			counter += 1
     
-    plt.scatter(range(0, len(NN_means)), NN_means, color="red")
-    plt.scatter(range(0, len(TME_means)), TME_means, color="black")
-    plt.errorbar(
-        range(0, len(TME_means)), TME_means, yerr=2 * np.array(TME_sd), color="black"
-    )
+    	plt.scatter(range(0, len(NN_means)), NN_means, color="red")
+    	plt.scatter(range(0, len(TME_means)), TME_means, color="black")
+    	plt.errorbar(
+        	range(0, len(TME_means)), TME_means, yerr=2 * np.array(TME_sd), color="black"
+    	)
 
-    plt.scatter(range(0, len(random_means)), random_means, color="blue")
-    plt.errorbar(
-        range(0, len(random_means)), random_means, yerr=2 * np.array(random_sd), color="blue"
-    )
+    	plt.scatter(range(0, len(random_means)), random_means, color="blue")
+    	plt.errorbar(
+        	range(0, len(random_means)), random_means, yerr=2 * np.array(random_sd), color="blue"
+    	)
 
-    plt.ylabel(metric, fontsize=30)
-    plt.xlabel("Dichotomy Rank", fontsize=24)
+    	plt.ylabel(metric, fontsize=30)
+    	plt.xlabel("Dichotomy Rank", fontsize=24)
 
-    red_patch = mpatches.Patch(color="red", label="Actual")
-    black_patch = mpatches.Patch(color="black", label="TME (T,N,C)")
-    blue_patch = mpatches.Patch(color="blue", label="Isotropic")
-    plt.legend(handles=[red_patch, black_patch, blue_patch], loc=(1.2, 0), fontsize=24)
-    plt.rc("xtick", labelsize=16)
-    plt.rc("ytick", labelsize=16)
-    plt.show()
+    	red_patch = mpatches.Patch(color="red", label="Actual")
+    	black_patch = mpatches.Patch(color="black", label="TME (T,N,C)")
+    	blue_patch = mpatches.Patch(color="blue", label="Isotropic")
+    	plt.legend(handles=[red_patch, black_patch, blue_patch], loc=(1.2, 0), fontsize=24)
+    	plt.rc("xtick", labelsize=16)
+    	plt.rc("ytick", labelsize=16)
+    	plt.show()
 
 
 def get_best_svm(data, dichotomy, labels):
@@ -1050,16 +1049,17 @@ def get_best_svm(data, dichotomy, labels):
 def get_projection_matrix(data):
     
     """Finds projection matrix from high-dimensional (N dimensions) space to low-dimensional (M dimensions) space
+    where in this case, N=100 and M=3
     
-		# Arguments 
+	# Arguments 
             data (array): Input data with two dimensional shape.
 
         # Returns 
-            M (array): 
+            M (array): projection matrix, size NxM
     
     """   
 
-    cor_mat1 = np.corrcoef(data_reshaped.T)
+    cor_mat1 = np.corrcoef(data.T)
 
     eig_vals, eig_vecs = np.linalg.eig(cor_mat1)
 
@@ -1081,9 +1081,9 @@ def calculate_plane(svm, M):
     
     """Calculates parameters of 3D hyperplane for given Linear SVM and projection matrix 
   
-		# Arguments 
+	# Arguments 
             svm (LinearSVM): SVM corresponding to a hyperplane.
-            M (array): 
+            M (array): projection matrix for given data, size NxM
             
         # Returns 
             (-a / c), (-b / c), d / c (list): List of 3 parameters corresponding to plane equation (shown below)
@@ -1366,3 +1366,125 @@ def get_CCGP(data, labels):
         index += 1
 
     return PS_ranks
+
+
+def find_angle(left, center, right):
+    
+    vector_1 = left-center
+    vector_2 = right-center
+    
+    return np.degrees(np.arccos(cosine(vector_1, vector_2)))
+
+
+def find_centroids(data):
+    
+    if len(data) % 8 != 0:
+        print("Error: incorrect data length")
+        
+        return None
+    
+    a = int(len(data)/8)
+    digit_1 = data[0*a:1*a]
+    digit_2 = data[1*a:2*a]
+    digit_3 = data[2*a:3*a]
+    digit_4 = data[3*a:4*a]
+    digit_5 = data[4*a:5*a]
+    digit_6 = data[5*a:6*a]
+    digit_7 = data[6*a:7*a]
+    digit_8 = data[7*a:8*a]
+    
+    digits = [digit_1, digit_2, digit_3, digit_4, digit_5, digit_6, digit_7, digit_8]
+    centroids = []
+    
+    for d in digits:
+        
+        centroid = np.zeros(len(data[0]))
+        
+        for point in d:
+    
+            centroid += point
+    
+        centroid = centroid/(len(data[0]))
+        
+        centroids.append(centroid)
+        
+    centroids_3D = []
+    
+    M = get_PCA_projection(data)
+
+    for x in centroids:
+    
+        new_centroid = x.dot(M)
+    
+        centroids_3D.append(new_centroid)
+    
+    centroids_3D = np.array(centroids_3D)
+        
+    return centroids, centroids_3D
+
+
+def get_angles(centroids):
+    
+    vectors = [(2,1,3), (2,1,5), (5,1,3),
+           (1,2,4), (1,2,6), (4,2,6),
+           (1,3,4), (1,3,7), (7,3,4),
+           (2,4,8), (3,4,8), (3,4,2),
+           (1,5,7), (6,5,7), (1,5,6),
+           (5,6,8), (2,6,8), (5,6,2),
+           (5,7,8), (3,7,8), (5,7,3),
+           (4,8,7), (6,8,7), (6,8,4)]
+    
+    angles = []
+    
+    for vec in vectors:
+    
+        point_1 = vec[0] - 1
+        point_2 = vec[1] - 1
+        point_3 = vec[2] - 1
+    
+        angle = find_angle(centroids[point_1], centroids[point_2], centroids[point_3])
+
+        angles.append(angle)
+
+    return angles
+
+
+def plot_centroid_3D(centroids_3D, title = "3D Geometry"):
+
+	vecs = [(1,2),
+        	(1,3),
+        	(1,5),
+        	(2,4),
+        	(2,6),
+        	(3,4),
+        	(3,7),
+        	(4,8),
+        	(5,6),
+        	(5,7),
+        	(6,8),
+        	(7,8),
+        	]
+
+	fig = plt.figure()
+	ax = fig.add_subplot(111, projection='3d')
+	ax.scatter(centroids_3D[:,0], centroids_3D[:,1], centroids_3D[:,2], color = new_colors)
+
+	index = 0
+	for point in centroids_3D:
+    		ax.text(centroids_3D[index][0],centroids_3D[index][1],centroids_3D[index][2], str(index + 1), size=20)
+    		index += 1
+
+	for vec in vecs:
+    		point_0 = vec[0] - 1
+    		point_1 = vec[1] - 1
+    		X, Y, Z = centroids_3D[point_0]
+    		U, V, W = centroids_3D[point_1] - centroids_3D[point_0]
+    		ax.quiver(X, Y, Z, U, V, W, arrow_length_ratio = 0.001)
+
+
+	ax.set_xlim(-80,80)
+	ax.set_ylim(-80,80)
+	ax.set_zlim(-80,80)
+	plt.title(title)
+	plt.show()
+
