@@ -1028,12 +1028,7 @@ def get_best_svm(data, dichotomy, labels):
             best_label3b = label3b
             best_label4b = label4b
 
-    print (best_label1a, best_label2a, best_label3a, best_label4a)
-    print (best_label1b, best_label2b, best_label3b, best_label4b)
-
     plane_cosine.sort(reverse=True)
-
-    print plane_cosine[0]
 
     return (best_svc1, best_svc2, best_svc3, best_svc4)
 
@@ -1377,7 +1372,7 @@ def find_centroids(data):
     """
 
     if len(data) % 8 != 0:
-        print 'Error: incorrect data length'
+        print('Error: incorrect data length')
 
         return None
 
