@@ -351,7 +351,7 @@ def cosine(v1, v2):
 
     if len(v1) != len(v2):
 
-        print 'Error: incompatible vector lengths'
+        print('Error: incompatible vector lengths')
 
         return None
 
