@@ -278,9 +278,9 @@ def test_p_score():
 """
 def test_surrogate_primary_features():
     
-    """Testing to see if the marginal covariances of surrogate data match those of the original data. 
+    Testing to see if the marginal covariances of surrogate data match those of the original data. 
     (i.e., differ from the original covariances by a constant amount)
-    """
+    
 
     data = np.ones((100, 50, 25))
 
