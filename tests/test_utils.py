@@ -168,11 +168,17 @@ def test_mean_center():
     
         #Testing to see if neural net data with mean subtracted has a mean close to zero across each mode.
         
+    T = 2000
+    C = 8
+    N = 100
     
     NN_data = np.load("./values/new_NN_data.npy")
     NN_mean = np.load("./values/new_mean_2D.npy")
+    
+    NN_data_reshaped = np.reshape(NN_data, (T,N,C), order = 'F')
+    NN_mean_reshaped = np.reshape(NN_mean, (T,N,C), order = 'F')
 
-    data = NN_data - NN_mean
+    data = NN_data_reshaped - NN_mean_reshaped
 
     T = data.shape[0]
     N = data.shape[1]
@@ -244,11 +250,11 @@ def test_p_score():
 
     toy_data = toy_data.T
 
-    p_score = p_score(
+    PS = p_score(
         toy_data, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8]), labels=toy_labels
     )
 
-    assert p_score > 0.99
+    assert PS > 0.99
 
     for i in range(200):
 
@@ -260,11 +266,11 @@ def test_p_score():
 
     toy_data = toy_data.T
 
-    p_score = p_score(
+    PS = p_score(
         toy_data, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8]), labels=toy_labels
     )
 
-    assert p_score < 0.01
+    assert PS < 0.01
 
 
 def test_surrogate_primary_features():
@@ -289,8 +295,16 @@ def test_surrogate_primary_features():
     mean_T = np.zeros((T, T))
     mean_N = np.zeros((N, N))
     mean_C = np.zeros((C, C))
+    
+    sizes = (T, N, C)
+    covs = [sigma_T, sigma_N, sigma_C]
 
-    for surr in range(len(data)):
+    rand = r.randtensor(sizes)
+    rand.fitMaxEntropy(covs)
+    
+    surrogates = rand.sampleTensors(10)
+
+    for surr in surrogates:
 
         T_cov, N_cov, C_cov = cov_3D(surr)
 
@@ -346,7 +360,8 @@ def test_angle():
     center = np.array([0,0,0])
     right = np.array([1,1,0])
 
-    assert find_angle(left, center, right) == 45
+    np.testing.assert_array_almost_equal(find_angle(left, center, right), 45,
+                                         decimal=6)
     
     left = np.array([1,0,0])
     center = np.array([0,0,0])
