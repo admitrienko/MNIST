@@ -1149,7 +1149,7 @@ def plot_hyperplane(data, dichotomy, labels, col = True):
     
     """Plots the 4 hyperplane (corresponding to 4 digit pairings) for the best pairing in the given dichotomy
     
-		# Arguments 
+	# Arguments 
             data (array): Input data with two dimensional shape.
             dichotomy (tuple): Tuple of two int arrays representing two sides of a dichotomy.
             labels (array): Corresponding condition labels with same length as input data.
@@ -1370,12 +1370,12 @@ def get_CCGP(data, labels):
 
 def find_angle(left, center, right):
 	
-    """Calculates angle between two vectors (left point - center point and right point - center point)
+    """Calculates angle between two vectors of length n (left point - center point and right point - center point)
 	# Arguments 
-            left, center, right (array): 
+            left, center, right (array): length n array of point coordinates
     
         # Returns 
-            angle (float):
+            angle (float): angle (in degrees) between the two vectors
     
     """
     
@@ -1386,6 +1386,16 @@ def find_angle(left, center, right):
 
 
 def find_centroids(data):
+	
+    """Finds 8 centroids (across each digit) for input data 
+	# Arguments 
+            data (array): Input data with two dimensional shape (M x N)
+    
+        # Returns 
+            centroids: list of 8 centroids in N-dimensional space
+	    centroids_3D: list of 8 centroids in 3-dimensional space
+    
+    """
     
     if len(data) % 8 != 0:
         print("Error: incorrect data length")
@@ -1433,6 +1443,16 @@ def find_centroids(data):
 
 
 def get_angles(centroids):
+	
+    """Finds all 24 angles for the "rectangular" latent geometry, given the centroids for each digit
+    
+	# Arguments 
+            centroids (list): list of 8 centroids (per digit) 
+    
+        # Returns 
+            angles (list): list of 24 angles between centroids
+    
+    """
     
     vectors = [(2,1,3), (2,1,5), (5,1,3),
            (1,2,4), (1,2,6), (4,2,6),
@@ -1459,41 +1479,47 @@ def get_angles(centroids):
 
 
 def plot_centroid_3D(centroids_3D, title = "3D Geometry"):
+	
+        """Visualizes centroids in 3D plot and connects them in "rectangular" geometry
+    
+	# Arguments 
+            centroids_3D (list): list of 8 centroids in 3-dimensional space
+    
+        """
 
-	vecs = [(1,2),
-        	(1,3),
-        	(1,5),
-        	(2,4),
-        	(2,6),
-        	(3,4),
-        	(3,7),
-        	(4,8),
-        	(5,6),
-        	(5,7),
-        	(6,8),
-        	(7,8),
-        	]
+        vecs = [(1,2),
+                (1,3),
+                (1,5),
+                (2,4),
+                (2,6),
+                (3,4),
+                (3,7),
+                (4,8),
+                (5,6),
+                (5,7),
+                (6,8),
+                (7,8)]
 
-	fig = plt.figure()
-	ax = fig.add_subplot(111, projection='3d')
-	ax.scatter(centroids_3D[:,0], centroids_3D[:,1], centroids_3D[:,2], color = new_colors)
+        fig = plt.figure
+        ax = fig.add_subplot(111, projection='3d')
+        ax.scatter(centroids_3D[:,0], centroids_3D[:,1], centroids_3D[:,2], color = new_colors)
 
-	index = 0
-	for point in centroids_3D:
-    		ax.text(centroids_3D[index][0],centroids_3D[index][1],centroids_3D[index][2], str(index + 1), size=20)
-    		index += 1
+        index = 0
+        for point in centroids_3D:
+                ax.text(centroids_3D[index][0],centroids_3D[index][1],centroids_3D[index][2], str(index + 1), size=20)
+                index += 1
 
-	for vec in vecs:
-    		point_0 = vec[0] - 1
-    		point_1 = vec[1] - 1
-    		X, Y, Z = centroids_3D[point_0]
-    		U, V, W = centroids_3D[point_1] - centroids_3D[point_0]
-    		ax.quiver(X, Y, Z, U, V, W, arrow_length_ratio = 0.001)
+        for vec in vecs:
+                point_0 = vec[0] - 1
+                point_1 = vec[1] - 1
+                X, Y, Z = centroids_3D[point_0]
+                U, V, W = centroids_3D[point_1] - centroids_3D[point_0]
+                ax.quiver(X, Y, Z, U, V, W, arrow_length_ratio = 0.001)
 
 
-	ax.set_xlim(-80,80)
-	ax.set_ylim(-80,80)
-	ax.set_zlim(-80,80)
-	plt.title(title)
-	plt.show()
+        ax.set_xlim(-80,80)
+        ax.set_ylim(-80,80)
+        ax.set_zlim(-80,80)
+        plt.title(title)
+        plt.show()
 
