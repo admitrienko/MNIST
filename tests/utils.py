@@ -795,8 +795,8 @@ def error_bar_plot(
         
 		NN_means = np.sort(NN_means)
 		NN_means = np.flip(NN_means)
-        	TME_means, TME_sd = sort(TME_means, TME_sd)
-        	random_means, random_sd = sort(random_means, random_sd)
+		TME_means, TME_sd = sort(TME_means, TME_sd)
+		random_means, random_sd = sort(random_means, random_sd)
 	
     	else:
 	
@@ -1369,6 +1369,15 @@ def get_CCGP(data, labels):
 
 
 def find_angle(left, center, right):
+	
+    """Calculates angle between two vectors (left point - center point and right point - center point)
+	# Arguments 
+            left, center, right (array): 
+    
+        # Returns 
+            angle (float):
+    
+    """
     
     vector_1 = left-center
     vector_2 = right-center
