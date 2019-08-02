@@ -19,6 +19,9 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy import stats
 from sklearn.decomposition import PCA
 
+import randtensor as r
+from randtensor import utils as u
+
 
 def test_cosine():
     
@@ -132,7 +135,7 @@ def test_CCGP():
         toy_data_x[i] = np.random.normal(0, 5)
         toy_data_y[i] = np.random.normal(0, 5)
 
-    toy_data = toy_data.T
+    #toy_data = toy_data.T
 
     toy_data[0] = toy_data_x
     toy_data[1] = toy_data_y
