@@ -263,6 +263,8 @@ def test_p_score():
 
         toy_data_x[i] = np.random.normal(0, 5)
         toy_data_y[i] = np.random.normal(0, 5)
+        
+    toy_data = toy_data.T
 
     toy_data[0] = toy_data_x
     toy_data[1] = toy_data_y
