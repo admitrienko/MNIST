@@ -337,6 +337,10 @@ def test_surrogate_primary_features():
         assert percent_diff < 0.20
 
 def test_angle():
+    
+    """Testing find_angle function using groups of 3 points that are used to calculate the angle between the corresponding
+    two vectors.
+    """
 
     left = np.array([1,0,0])
     center = np.array([0,0,0])
