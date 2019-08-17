@@ -1,6 +1,6 @@
 import sys
 
-from MNIST-Abstraction-Testing.utils import *
+from MNIST_Abstraction_Testing.utils import *
 
 import numpy as np
 import keras
