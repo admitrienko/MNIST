@@ -274,7 +274,7 @@ def reduce_sample_size(data, labels, T=2000, C=8, N=100, old_T=5420):
     """
 
     new_data = np.ones(((T * C), N))
-    new_NN_labels = np.ones(T * C)
+    new_labels = np.ones(T * C)
 
     index = 0
     for x in range(C):
@@ -292,36 +292,30 @@ def mean_center(data):
     
     """Subtract the tensor marginal mean from neural network output
 	 # Arguments 
-	        data (array): Neural network output data with 3 dimensional shape (T,N,C)
+	        data (array): Neural network output data with 2 dimensional shape (T*C,N)
     
         # Returns 
-		mean_centered: NN data with tensor marginal mean subtracted away, shape (T,N,C)
-		mean_reshaped: tensor marginal mean shape (T*C, N)
+		mean_centered: 3D NN data with tensor marginal mean subtracted away, shape (T,N,C)
+		mean_reshaped: 2D tensor marginal mean, shape (T*C, N)
     
     """
 
-    T = data.shape[0]
-    N = data.shape[1]
-    C = data.shape[2]
-
     # reshape from ((T*C),N) to (T,C,N)
-    data_2D = np.reshape(data, (T, C, N), order="F")
+    data_3D = np.reshape(data, (T, C, N), order="F")
 
     # reshape from (T,C,N) to (T,N,C)
-    data_2D = np.swapaxes(data_2D, 1, 2)
+    data_3D = np.swapaxes(data_3D, 1, 2)
 
-    mean = u.first_moment(data_2D)
+    mean = u.first_moment(data_3D)
 
+    mean_centered = data_3D - mean
+    
     mean_reshaped = np.reshape(mean, ((T * C), N), order="F")
-
-    mean_centered = data_2D - mean_reshaped
-	
-    mean_centered = np.reshape(mean_centered, (T, N ,C), order="F")
 
     return mean_centered, mean_reshaped
 
 
-def TME_sample(mean_centered, mean_reshaped, num_samples):
+def TME_sample(mean_centered, mean_reshaped, num_samples = 10):
     
     """Sample
 	    # Arguments 
@@ -339,7 +333,7 @@ def TME_sample(mean_centered, mean_reshaped, num_samples):
     N = mean_centered.shape[1]
     C = mean_centered.shape[2]
 
-    sigma_T, sigma_N, sigma_C = cov_3D(mean_centered, T, N, C)
+    sigma_T, sigma_N, sigma_C = cov_3D(mean_centered)
 
     sizes = (T, N, C)
     covs = [sigma_T, sigma_N, sigma_C]
