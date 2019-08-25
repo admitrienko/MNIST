@@ -200,7 +200,7 @@ def get_dichotomies():
     return dichotomies
 
 
-def shuffle_dataset(current_data, current_labels):
+def shuffle_dataset(current_data, current_labels, T = 1000, N = 100, C = 8):
     """Shuffles a data set
 ....# Arguments 
             (arrays) dataset and corresponding condition labels
@@ -210,11 +210,7 @@ def shuffle_dataset(current_data, current_labels):
     
     """
 
-    T = current_data.shape[0]
-    N = current_data.shape[1]
-    C = current_data.shape[2]
-
-    index_locations = np.ones(N)
+    index_locations = np.ones(T * C)
 
     new_dataset = np.ones((T * C, N))
     new_labels = np.ones(T * C)
@@ -240,6 +236,7 @@ def plot_MDS(
     input_labels,
     number_points=800,
     title='MDS Plot',
+    T = 1000,
     ):
     """2D MDS visualization for data
 ....# Arguments 
@@ -251,7 +248,7 @@ def plot_MDS(
     
     """
 
-    (dataset, labels) = shuffle_dataset(input_dataset, input_labels)
+    (dataset, labels, index_locations) = shuffle_dataset(input_dataset, input_labels)
 
     colors = np.ones(len(labels), dtype=object)
     index = 0
