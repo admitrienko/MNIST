@@ -192,11 +192,11 @@ def read_MNIST_data(
 
     data = np.frombuffer(train_image, dtype=np.uint8).astype(np.float32)
     data = data[16:47040016]
-    train_data = data.reshape(60000, np.sqrt(image_size), np.sqrt(image_size), 1)
+    train_data = data.reshape(60000, int(np.sqrt(image_size)), int(np.sqrt(image_size)), 1)
 
     data = np.frombuffer(test_image, dtype=np.uint8).astype(np.float32)
     data = data[16:47040016]
-    test_data = data.reshape(10000, np.sqrt(image_size), np.sqrt(image_size), 1)
+    test_data = data.reshape(10000, int(np.sqrt(image_size)), int(np.sqrt(image_size)), 1)
 
     # image = np.asarray(train_data[235]).squeeze()
     # plt.imshow(image)
@@ -251,7 +251,7 @@ def train_model(
     model.fit(
         train_image_sample_random,
         [parity_train_sample_random.T, magnitude_train_sample_random.T],
-        epochs,
+        epochs=epochs,
     )
 
     return model
