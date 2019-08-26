@@ -261,8 +261,8 @@ def test_p_score():
 
     for i in range(200):
 
-        toy_data_x[i] = np.random.normal(0, 1)
-        toy_data_y[i] = np.random.normal(0, 1)
+        toy_data_x[i] = np.random.normal(0, 10)
+        toy_data_y[i] = np.random.normal(0, 10)
         
     toy_data = toy_data.T
 
