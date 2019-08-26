@@ -258,7 +258,8 @@ def test_p_score():
     )
 
     assert PS > 0.99
-
+    
+    """
     for i in range(200):
 
         toy_data_x[i] = np.random.normal(0, 10)
@@ -276,8 +277,9 @@ def test_p_score():
     )
 
     assert PS < 0.5
+    
 
-"""
+
 def test_surrogate_primary_features():
     
     Testing to see if the marginal covariances of surrogate data match those of the original data. 
