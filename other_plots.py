@@ -1,4 +1,22 @@
 # create plots to understand CCGP and PS values
+from MNIST_Abstraction_Testing.utils import *
+
+import numpy as np
+import keras
+from keras.models import Model, Sequential
+from keras.layers import Flatten, Embedding, Dense, Activation, Input
+import matplotlib.pyplot as plt
+import gzip
+import random
+from keras import backend as K
+from sklearn import manifold
+from sklearn.svm import LinearSVC
+import math
+from itertools import combinations
+from itertools import permutations
+from mpl_toolkits.mplot3d import Axes3D
+from scipy import stats
+from sklearn.decomposition import PCA
 
 
 def p_score2(data, labels, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8])):
