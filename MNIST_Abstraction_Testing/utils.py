@@ -1269,7 +1269,7 @@ def plot_hyperplane(
     iplot(fig)
 
 
-def get_PS(datasets, labels):
+def get_PS(data, labels):
     """Finds parallelism scores for each dichotomy, given data and labels
     
 ....# Arguments 
@@ -1293,7 +1293,7 @@ def get_PS(datasets, labels):
 
         for d in dichotomies:
 
-            p_score_value = p_score(dataset, dichotomy=d, labels=labels)
+            p_score_value = p_score(data[index], dichotomy=d, labels=labels)
             PS.append(p_score_value)
 
         # PS.sort(reverse = True)
@@ -1329,7 +1329,7 @@ def get_CCGP(data, labels):
 
         for d in dichotomies:
 
-            ccgp_value = ccgp(dataset, dichotomy=d, labels=labels)
+            ccgp_value = ccgp(data[index], dichotomy=d, labels=labels)
             CCGP.append(ccgp_value)
 
         # CCGP.sort(reverse = True)
