@@ -261,8 +261,8 @@ def test_p_score():
 
     for i in range(200):
 
-        toy_data_x[i] = np.random.normal(0, 5)
-        toy_data_y[i] = np.random.normal(0, 5)
+        toy_data_x[i] = np.random.normal(0, 1)
+        toy_data_y[i] = np.random.normal(0, 1)
         
     toy_data = toy_data.T
 
@@ -275,7 +275,7 @@ def test_p_score():
         toy_data, dichotomy=([1, 2, 3, 4], [5, 6, 7, 8]), labels=toy_labels
     )
 
-    assert PS < 0.01
+    assert PS < 0.05
 
 """
 def test_surrogate_primary_features():
