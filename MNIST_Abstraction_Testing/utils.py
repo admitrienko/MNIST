@@ -228,7 +228,7 @@ def shuffle_dataset(current_data, current_labels, T = 1000, N = 100, C = 8):
 
             counter += 1
 
-    return (new_dataset, new_labels, index_locations)
+    return new_dataset, new_labels, index_locations
 
 
 def plot_MDS(
@@ -248,7 +248,7 @@ def plot_MDS(
     
     """
 
-    (dataset, labels, index_locations) = shuffle_dataset(input_dataset, input_labels)
+    dataset, labels, index_locations = shuffle_dataset(input_dataset, input_labels)
 
     colors = np.ones(len(labels), dtype=object)
     index = 0
@@ -269,7 +269,7 @@ def plot_MDS(
     embedding = manifold.MDS(n_components=2)
 
     train_image_transformed = \
-        embedding.fit_transform(layer1_output[1200:1600])
+        embedding.fit_transform(dataset[1200:1600])
     plt.scatter(train_image_transformed[:, 0], train_image_transformed[:
                 , 1], c=colors[1200:1600])
     plt.title(title, fontsize=30)
@@ -732,7 +732,7 @@ def get_mean_SD(values):
         means[a] = np.mean(means_data)
         sd[a] = np.std(means_data)
 
-    return (means, sd)
+    return means, sd
 
 
 def sort_means_sd(means, sd):
@@ -767,7 +767,7 @@ def sort_means_sd(means, sd):
 
         sorted_sd.append(sd[tup[0]])
 
-    return (sorted_means, sorted_sd)
+    return sorted_means, sorted_sd
 
 
 def error_bar_plot(
@@ -1338,7 +1338,7 @@ def get_CCGP(data, labels):
 
         index += 1
 
-    return PS_ranks
+    return CCGP_ranks
 
 
 def find_angle(left, center, right):
