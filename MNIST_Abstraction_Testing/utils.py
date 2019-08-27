@@ -18,6 +18,9 @@ from mpl_toolkits.mplot3d import Axes3D
 from scipy import stats
 from sklearn.decomposition import PCA
 
+from rand_tensor import utils as u
+from rand_tensor import randtensor as r
+
 
 def sample_random_data(dimensions):
     """Sample from isotropic Gaussian data
