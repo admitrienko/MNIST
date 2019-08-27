@@ -17,6 +17,9 @@ from scipy import stats
 from sklearn.decomposition import PCA
 import matplotlib.patches as mpatches
 
+from MNIST_Abstraction_Testing.utils import *
+from MNIST_Abstraction_Testing.pipeline_utils import *
+
 
 if __name__ == "__main__":
 
