@@ -10,7 +10,7 @@ setup(name='MNIST_Abstraction_Testing',
       author_email='ad3473@columbia.edu',
       #dependency_links=['https://github.com/gamaleldin/rand_tensor/tarball/master#egg=package-1.0'], 
       dependency_links=[
-        'git+ssh://https://github.com/admitrienko/rand_tensor.git#egg=randtensor-0.1'
+        'https://github.com/admitrienko/rand_tensor.git#egg=randtensor-0.1'
            ],
       install_requires=['numpy', 
                        'keras',
@@ -19,6 +19,7 @@ setup(name='MNIST_Abstraction_Testing',
                         'sklearn',
                         'scipy',
                         'setuptools>=41.0.0',
+                        'randtensor',
                        ],
 
       packages = ['MNIST_Abstraction_Testing'],
