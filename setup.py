@@ -15,7 +15,8 @@ setup(name='MNIST_Abstraction_Testing',
                         'matplotlib',
                         'sklearn',
                         'scipy',
-                        'setuptools>=41.0.0'
+                        'setuptools>=41.0.0',
+                        'randtensor'
                        ],
       packages = ['MNIST_Abstraction_Testing'],
      )
