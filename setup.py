@@ -16,8 +16,11 @@ setup(name='MNIST_Abstraction_Testing',
                         'sklearn',
                         'scipy',
                         'setuptools>=41.0.0',
-                        'randtensor @ git+ssh://git@github.com/gamaleldin/rand_tensor@v1.1#egg=randtensor'
-                        ,
+                        'randtensor',
                        ],
+   
+    dependency_links=[
+        'git+ssh://git@github.com/gamaleldin/rand_tensor.git#egg=randtensor-0.1'
+           ]
       packages = ['MNIST_Abstraction_Testing'],
      )
