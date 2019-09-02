@@ -20,7 +20,7 @@ setup(name='MNIST_Abstraction_Testing',
                        ],
    
     dependency_links=[
-        'git+ssh://git@github.com/admitrienko/rand_tensor.git#egg=randtensor-0.1'
+        'git+ssh://https://github.com/admitrienko/rand_tensor.git#egg=randtensor-0.1'
            ],
       packages = ['MNIST_Abstraction_Testing'],
      )
