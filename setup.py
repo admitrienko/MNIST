@@ -21,6 +21,6 @@ setup(name='MNIST_Abstraction_Testing',
    
     dependency_links=[
         'git+ssh://git@github.com/gamaleldin/rand_tensor.git#egg=randtensor-0.1'
-           ]
+           ],
       packages = ['MNIST_Abstraction_Testing'],
      )
