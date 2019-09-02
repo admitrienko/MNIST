@@ -1,2 +1,2 @@
 setuptools>=41.0.0
-https://github.com/admitrienko/rand_tensor.git#egg=randtensor-0.1
+https://github.com/admitrienko/rand_tensor.git#egg=rand_tensor-0.1
