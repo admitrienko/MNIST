@@ -19,7 +19,6 @@ setup(name='MNIST_Abstraction_Testing',
                         'sklearn',
                         'scipy',
                         'setuptools>=41.0.0',
-                        'randtensor',
                        ],
 
       packages = ['MNIST_Abstraction_Testing'],
