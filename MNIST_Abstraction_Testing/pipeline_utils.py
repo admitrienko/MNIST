@@ -7,8 +7,8 @@ import random
 
 from MNIST_Abstraction_Testing.utils import *
 
-from rand_tensor import utils as u
-from rand_tensor import randtensor as r
+from randtensor import utils as u
+from randtensor import randtensor as r
 
 
 def create_train_sample(train_data, train_labels):
